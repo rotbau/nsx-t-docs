@@ -33,5 +33,5 @@ Step 3 must be complete before moving forward with this step
 4. Transport VLAN: 0 (on my switch the transport vlan is native on the port this pnic is connected to.  Vlan will vary depending on topology)
 5. MTU: 1600
 
-NSX-T Ref:
-https://docs.pivotal.io/runtimes/pks/1-2/nsxt-deploy.html#create-nsx-cluster
+NSX-T 2.3 Ref:
+https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.3/com.vmware.nsxt.install.doc/GUID-F739DC79-4358-49F4-9C58-812475F33A66.html
