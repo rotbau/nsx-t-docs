@@ -29,6 +29,12 @@
   * **Uplink Profile:** host-uplink-profile (created above)
   * **IP Assignment:** Use IP Pool
   * **IP Pool:** tep-ip-pool
+  * **Physical Nics:** vmnic2 (or whatever unused vmnic you have available thats properly configured for TEP network)
   * Add
   * Verify Node functionality; 'Configuration State: Success'; 'Status: Up'  Note: This may take a few moments
   * Repeat for all ESXi hosts you want prepped
+4. Verify NSX TEP vmk is created on all hosts
+  * SSH to ESXi Host(s)
+  * `esxi-01> esxcfg-vmknic -l` look for vmk which has Netstack type vxlan (vmk10)
+  *  `vmkping ++netstack=vxlan {ip of another tep} -d -s 1500` should see reply from other TEPs in the network (either other hosts or edge)
+  * `esxcfg-nics -l` to check for MTU of vnics attached to TEP networks
