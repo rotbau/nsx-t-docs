@@ -32,7 +32,7 @@ Step 3 must be complete before moving forward with this step
   * **Name:** edge-uplink-profile
   * **Teaming Policy:** Failover
   * **Active Uplinks:** Type in name (uplink-1)
-  * **Transport VLAN:** 0 (on my switch the transport vlan is native on the port this pnic is connected to.  Vlan will vary depending on topology)
+  * **Transport VLAN:** 0 (because VM Nics are created to port groups with VLANs already configured this can be left at 0)
   * **MTU:** 1600
 
 NSX-T 2.3 Ref:

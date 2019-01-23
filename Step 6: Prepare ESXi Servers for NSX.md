@@ -37,4 +37,4 @@
   * SSH to ESXi Host(s)
   * `esxi-01> esxcfg-vmknic -l` look for vmk which has Netstack type vxlan (vmk10)
   *  `vmkping ++netstack=vxlan {ip of another tep} -d -s 1500` should see reply from other TEPs in the network (either other hosts or edge)
-  * `esxcfg-nics -l` to check for MTU of vnics attached to TEP networks
+  * `esxcfg-nics -l` to check for MTU of vnics attached to TEP networks.  Needs to be at least 1600
