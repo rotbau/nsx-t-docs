@@ -11,10 +11,11 @@
 3. Deploy NSX Edge
   * Deploy NSX-T Edge appliance OVA
   * Connect NICs to appropriate VLANs
-    * Nic 1 = mgmt vlan
+    * Nic 1 = MGMT Portgroup/vlan
     * Nic 2 = TEP vlan (1600 mtu minimum)
-    * Nic 3 = vlan for edge ingress/egress trafic
-    * Nic 4 = same vlan as Nic 3
+    * Nic 3 = vlan for edge uplink to physical router.  Connect to Portgroup/vlan where T0 uplink will be located
+    * Nic 4 = Not used so connect to any Portgroup/vlan
+
   * For PKS installations Edge node needs to be type Large
   * Configure password and IP parameters as prompted
   4. Validate all appliance installs are successful and management IPs are all pingable.
