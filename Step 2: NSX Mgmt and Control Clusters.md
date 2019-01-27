@@ -34,8 +34,8 @@ Once the appliances have all been deployed and powered on you will need to creat
       * Look for **'Security secret successfully set on the node'**
 
     * Initialize Cluster
-     * `NSX-Controller> initialize control-cluster`
-     * Look for **'Control cluster initialization successful'**
+      * `NSX-Controller> initialize control-cluster`
+      * Look for **'Control cluster initialization successful'**
 
 2.5 Verify control cluster functionality
   * Validate on NSX Controller VM
