@@ -2,23 +2,24 @@
 
 Once the NSX Edge VM has been deployed and configured it needs to be registered to the NSX Manager
 
-## Join NSX Edge with NSX management plane
-1. SSH to NSX Manager
-2. Open separate SSH to NSX Edge
-3. Get API thumbprint on NSX Manager or reuse the one you obtained when joining controllers.  On NSX Manager
+## Join NSX Edge with NSX Management plane
 
-`NSX-Mgr> get certficate api thumbprint`
+3.1 Getp API thumbprint of NSX Manager
+  * SSH to NSX Manager VM (or reuse thumbprint optained in step 2.1 if saved)
+    * `NSX-Mgr> get certficate api thumbprint`
 
-4. On NSX Edge join the management plane
+3.2 Join management plane on NSX Edge
+  * SSH to NSX Edge VM
+    * `NSX-Edge join management-plane (mgr IP) username admin thumbprint (nsx-manager-thumbprint)`
+    * Provide NSX admin password when prompted
+    * Look for **'Node successfully registered as Fabric Node: [uuid]'**
 
-`NSX-Edge join management-plane (mgr IP) username admin thumbprint (nsx-manager-thumbprint)`
-  * provide NSX admin password when prompted
-  * look for message 'Node successfully registered and edge restarted'
-5. Verify result on NSX Edge
-
-`NSX-Edge> get managers`
-  * should see IP of manager with status 'Connected'
-6. Verify cluster status on NSX Manager but going to UI and Fabric > Edges.  You should see Manager Connectivity Up.
+3.3 Verify Edge connectivity to management plane
+  * Edge VM
+    * `NSX-Edge> get managers`
+    * Verify IP of manager with status **'Connected'**
+  * NSX Manager UI
+    * Verify cluster status in NSX Manager UI . Navigate Fabric > Nodes > Edges.  You should see **Manager Connectivity: Up**
 
  NSX-T 2.3 Ref:
  https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.3/com.vmware.nsxt.install.doc/GUID-AECC66D0-C968-4EF2-9CAD-7772B0245BF6.html
