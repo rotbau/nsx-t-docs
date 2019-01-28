@@ -1,7 +1,7 @@
 # Create TEP IP Pool and Transport Zones
 
 ## Create TEP IP Pool
-4.1 In NSX Manager UI, Inventory > Groups > IP Pool > click **+Add**
+4.1 NSX Manager UI, Inventory > Groups > IP Pool > click **+Add**
   * **Name:** tep-ip-pool
   * Click **+Add** under Subnets
     * **IP range** (192.168.10.10-192.168.10.20 example
@@ -12,7 +12,7 @@
     * Click Add button
 
 ## Create Transport Zones
-4.2 In NSX Manager UI navigate to Fabric > Transport Zones > click **+Add**
+4.2 NSX Manager UI, Fabric > Transport Zones > click **+Add**
   * VLAN Transport Zone (used for uplink to physical network)
     * **Name:** tz-vlan
     * **Host Switch Name:** nvds01 (example)
