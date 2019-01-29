@@ -212,7 +212,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
 9.15 Add the new API Certificate to NSX Manager
 
   * NSX Manager UI > System > Trust > Certificates > click **Import** > Import Certificate (Make sure you do not choose CA Certificate)
-    * **Name:**  NSX-T_API_CERT
+    * **Name:**  NSX_API_CERT
     * **Certificate Kay:** Paste contents of the nsx.crt file including the `'------ BEGIN CERTIFICATE` and `END CERTIFICATE -----'`
     * **Private Key:** Paste contents of the nsx.key file including the `'------ BEGIN CERTIFICATE` and `END CERTIFICATE -----'`
     * **Password:** NSX Manager Password
@@ -220,7 +220,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
 
 9.16 Register new Certifcate for API Access
 
-* IN NSX Manager click on ID of the NSX-T_API_CERT created in step 9.15.
+* IN NSX Manager click on ID of the NSX_API_CERT created in step 9.15.
   * Copy the ID to clipboard
 * On CLI-VM command line run the following command pasting the ID copied above in place of the [certificateID]
   * `export CERTIFICATE_ID=[certificateID]`
