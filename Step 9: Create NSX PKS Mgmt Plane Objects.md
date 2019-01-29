@@ -19,7 +19,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
   * PKS Service Subnet
     * **Use:** Needs to be there but not used.  Holdover from old design but you do need to create them.
     * **IP Subnet:** 172.31.2.0/24
-    * **Network Routable:** NO (not used)
+    * **Network Routable:** YES (but not used)
   * Nodes IP Block
     * **Use:** Kubernetes Master and Nodes. Each new cluster peels a block from this subnet (/24 for now)
     * **IP Subnet:** 172.15.0.0/16 **see warnings
@@ -127,18 +127,26 @@ If you are planning on using NSX with VMware PKS then this section will cover th
     * **IP Address/mask:** 172.31.2.254/24
     * Click Add
 
+9.8 Configure T1 Route Advertisement for PKS Service
+    * * Locate T1-PKS-SERVICE router, click on it opening the router properties.
+  * Routing Pull-down > Route Advertisement > click **Edit**
+    * **Status:** Enable
+      * Advertise All NSX Connected Routes
+      * Advertise All NAT Routes (only if using NAT for MGMT network)
+    * Save
+
 ## Create IP Blocks for PKS Components
-9.7 Create Kubernetes Nodes IP Block
+9.9 Create Kubernetes Nodes IP Block
   * NSX Manager UI, Networking > IPAM > click **+Add**
     * **Name:** pks-nodes-ip-block
     * **CIDR:** 172.15.0.0/16
 
-9.8 Create PODS IP Block
+9.10 Create PODS IP Block
   * NSX Manager UI, Networking > IPAM > click **+Add**
     * **Name:** pks-pods-ip-block
     * **CIDR:** 172.16.0.0/16
 
-9.9 Create VIP IP Pool
+9.11 Create VIP IP Pool
   * NSX Manager UI, Inventory > Groups > click **+Add**
     * **Name:** pks-vip-ip-pool
     * +Add
@@ -147,7 +155,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
     * Click Add
 
 ## Configure Routing for VIP IP Range
-9.10 Configure Routing on T0 if using BGP
+9.12 Configure Routing on T0 if using BGP
   * NSX Manager UI, Networking > Routing
   * Locate TO router, click on it opening the router properties.
   * Routing Pull-down > Static Routes > click **+Add**
@@ -156,7 +164,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
       * **Next Hop:** NULL
       * Click Add
 
-9.11 Configure/Reconfigure Route Redistribution with BGP
+9.13 Configure/Reconfigure Route Redistribution with BGP
   * T0 > Routing Pull-down > Route Redistribution
   * You should already have a **bgp-route-redistribution** created from step 6.7
   * Select and click **Edit** on bgp-route-redistribution
@@ -164,14 +172,14 @@ If you are planning on using NSX with VMware PKS then this section will cover th
   * Save
   * Verify in your Physical Switch that you are peering with that the 10.40.14.32/27 network is now listed.
 
-9.12 Static Route (optional only use if not using BGP)
+9.14 Static Route (optional only use if not using BGP)
   * On your Physical Router / Switch for your environment create a new static route to the 10.40.14.32/27 network with 192.168.79.3 (edge uplink configured in step 6.4)
 
   ## Create NSX API Certificate for use by PKS
 
   During install NSX generated a self-signed certificate that was based on hostname.  PKS expects a certificated based on the FQDN so we will need to generate and replace the NSX certificate.
 
-9.13 Create new nsx.crt and nsx.key for API access
+9.14 Create new nsx.crt and nsx.key for API access
   * SSH to CLI-VM (linux jump host with PKS and Kubectl tools install)
   * Create a directory to hold script and objects
     * `mkdir ~/nsx-cert`
@@ -207,9 +215,9 @@ If you are planning on using NSX with VMware PKS then this section will cover th
 
   * The above file will create 2 files, **nsx.crt** and **nsx.key**
 
-9.14 Cat the contents of the **nsx.crt** and **nsx.key** files to validate contents
+9.16 Cat the contents of the **nsx.crt** and **nsx.key** files to validate contents
 
-9.15 Add the new API Certificate to NSX Manager
+9.17 Add the new API Certificate to NSX Manager
 
   * NSX Manager UI > System > Trust > Certificates > click **Import** > Import Certificate (Make sure you do not choose CA Certificate)
     * **Name:**  NSX_API_CERT
@@ -218,7 +226,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
     * **Password:** NSX Manager Password
     * Click Import
 
-9.16 Register new Certifcate for API Access
+9.18 Register new Certifcate for API Access
 
 * IN NSX Manager click on ID of the NSX_API_CERT created in step 9.15.
   * Copy the ID to clipboard
