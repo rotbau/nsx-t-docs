@@ -171,4 +171,67 @@ If you are planning on using NSX with VMware PKS then this section will cover th
 
   During install NSX generated a self-signed certificate that was based on hostname.  PKS expects a certificated based on the FQDN so we will need to generate and replace the NSX certificate.
 
+9.13 Create new nsx.crt and nsx.key for API access
+  * SSH to CLI-VM (linux jump host with PKS and Kubectl tools install)
+  * Create a directory to hold script and objects
+    * `mkdir ~/nsx-cert`
+    * `cd ~/nsx-cert`
+  * Create nsx-cert.cnf file
+    * `vi nsx-cert.cnf`
+    * Copy / Past the below code into the nsx-cert.cnf file.  Replace nsxmgr.corp.local and IP address with your NSX Manager FQDN and IP
+    ````
+    [ req ]
+    default_bits = 2048
+    distinguished_name = req_distinguished_name
+    req_extensions = req_ext
+    prompt = no
+    [ req_distinguished_name ]
+    countryName = US
+    stateOrProvinceName = California
+    ocalityName = Palo-Alto
+    organizationName = NSX
+    commonName = nsxmgr.corp.local
+    [ req_ext ]
+    subjectAltName=DNS:nsxmgr.corp.local,IP:192.168.110.42
+    ````
+  * Export variables on your CLI-VM (jumphost) commandline replacing the FQDN and IP with your information
+    * `export NSX_MANAGER_IP_ADDRESS=192.168.110.42`
+    * `export NSX_MANAGER_COMMONNAME=nsxmgr.corp.local` 
+  * Paste the following command to the CLI-VM command line and execute it
+    ````
+    openssl req -newkey rsa:2048 -x509 -nodes \
+    -keyout nsx.key -new -out nsx.crt -subj /CN=$NSX_MANAGER_COMMONNAME \
+    -reqexts SAN -extensions SAN -config <(cat ./nsx-cert.cnf \
+    <(printf "[SAN]\nsubjectAltName=DNS:$NSX_MANAGER_COMMONNAME IP:$NSX_MANAGER_IP_ADDRESS")) -sha256 -days 365
+    ````
+
+  * The above file will create 2 files, **nsx.crt** and **nsx.key**
+
+9.14 Cat the contents of the **nsx.crt** and **nsx.key** files to validate contents
+
+9.15 Add the new API Certificate to NSX Manager
+
+  * NSX Manager UI > System > Trust > Certificates > click **Import** > Import Certificate (Make sure you do not choose CA Certificate)
+    * **Name:**  NSX-T_API_CERT
+    * **Certificate Kay:** Paste contents of the nsx.crt file including the `'------ BEGIN CERTIFICATE` and `END CERTIFICATE -----'`
+    * **Private Key:** Paste contents of the nsx.key file including the `'------ BEGIN CERTIFICATE` and `END CERTIFICATE -----'`
+    * **Password:** NSX Manager Password
+    * Click Import
+
+9.16 Register new Certifcate for API Access
+
+* IN NSX Manager click on ID of the NSX-T_API_CERT created in step 9.15.
+  * Copy the ID to clipboard
+* On CLI-VM command line run the following command pasting the ID copied above in place of the [certificateID]
+  * `export CERTIFICATE_ID=[certificateID]`
+* Excecute the following command from CLI-VM command line
+  ````
+  curl --insecure -u admin:'VMware1!' \
+  -X POST \
+  "https://$NSX_MANAGER_IP_ADDRESS/api/v1/node/services/http?action=apply_certificate&certificate_id=$CERTIFICATE_ID"
+  ````
+* Log Out of NSX Manager and Log back in
+
+Creation of NSX PKS Objects is now complete.  Your NSX-T installation is now ready to support VMware PKS
+
 
