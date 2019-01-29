@@ -1,4 +1,4 @@
-#Create NSX objects for PKS Mgmt Plane
+# Create NSX objects for PKS Mgmt Plane
 
 If you are planning on using NSX with VMware PKS then this section will cover the NSX objects that need to be created to
 
