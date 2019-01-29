@@ -33,7 +33,7 @@ The T0 Router provides ingress/egress to the Physical Network from Overlay Netwo
     * **URPF Mode:** left to Strict (need to clarify)
     * **Logical Switch:** Select VLAN logical switch (uplink-vlan-ls)
     * **Logical Switch Port:** Give name or leave blank for auto name
-    * **IP Address:** 192.168.x.x/24 (note this address is used to peer with upstream physical network and needs to be on same VLAN used in VLAN logical switch and correspond to Edge NIC mapping for fp-eth1 vmnic2)
+    * **IP Address:** 192.168.79.3/24 (note this address is used to peer with upstream physical network and needs to be on same VLAN used in VLAN logical switch and correspond to Edge NIC mapping for fp-eth1 vmnic2)
     * Click Add
 ## Configure Static or Dynamic Routing
 6.5 Static Route (optional depending on BGP config)

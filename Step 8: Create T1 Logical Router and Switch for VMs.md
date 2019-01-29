@@ -6,11 +6,10 @@ This will cover creating a Tier 1 logical router and switch to provide logical n
 8.1 NSX Manager UI, Networking > Routing > click **+Add** > Tier-1-Router
   * **Name:** T1-LR-VM
   * **Tier-0-Router:** T0-LR
-  * **Edge Cluster:** edge-cluster01 (pull-down)
-  * **Failover Mode:** Non-preemptive
-  * **Edge Cluster Memebers:** edge-tn
+  * **Edge Cluster:** LEAVE BLANK**
   * Click Add
   * Note: router port to T0 automatically created and plumbed
+  * ** Do not attach 1 T1 to Edge Cluster unless you specifically need services like NAT, DFW, LB or other stateful service.  Doing so will cause the T1 to not be distributed.
 
 ## Create VM overlay logical switch
 8.2 NSX Manager UI, Networking > Switching > Switches > click **+Add**

@@ -4,9 +4,9 @@
 4.1 NSX Manager UI, Inventory > Groups > IP Pool > click **+Add**
   * **Name:** tep-ip-pool
   * Click **+Add** under Subnets
-    * **IP range** (192.168.10.10-192.168.10.20 example
-    * **Gateway** 192.168.10.254
-    * **CIDR** (192.168.10.0/24)
+    * **IP range** (192.168.89.10-192.168.89.20 example
+    * **Gateway** 192.168.89.254
+    * **CIDR** (192.168.89.0/24)
     * **DNS** (optional)
     * **DNS suffix** (optional)
     * Click Add button
