@@ -49,5 +49,9 @@
 7.5 Verify NSX TEP vmk is created on all hosts
   * SSH to ESXi Host(s)
     * `esxi-01> esxcfg-vmknic -l` look for vmk which has Netstack type vxlan (vmk10)
+    * `vmkping -S vxlan -I vmk10 -d -s 1550 [VTEP IP]`
+    or old command is 
     * `vmkping ++netstack=vxlan {ip of another tep} -d -s 1550` should see reply from other TEPs in the network (either other hosts or edge)
     * `esxcfg-nics -l` to check for MTU of vnics attached to TEP networks.  Needs to be at least 1600
+    * Also validate that the vSWITCH or DVS that the NSX EDGE VMs are attached to have MTU of 1600 or greater set.
+    * Verify PING from to all EDGE vtep and host vtep interfaces at 1550 bytes

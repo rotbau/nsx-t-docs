@@ -70,4 +70,6 @@ Steps 3 and 4 must be complete before moving forward with this step
         * verify VTEP IP is present
       * `get logical-routers`
       * `nsx-edge-1> vrf 0`
-      * `nsx-edge-1>(vrf)> ping IP-ADDRESS-EDGE-2`
+      * `nsx-edge-1>(vrf)> ping TEP IP EDGE2 or ESXi HOSTS`
+      * Validate MTU is working `nsx-edge-1>(vrf) ping [esxi or edge TEP IP] size 1550 dfbit ENABLE`
+      * If ping of 1550 doesn't work, verify the vSS or vDS is set to allow jumbo frames (>1600)
