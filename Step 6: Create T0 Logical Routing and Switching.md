@@ -67,6 +67,8 @@ The T0 Router provides ingress/egress to the Physical Network from Overlay Netwo
   * Routing Pull-down > Route Redistribution > click **+Add**
     * **Name:** bgp-route-redistribution
     * **Sources:** NSX Static
+    * **NOTE in 2.4.1 For Sources I had to Select T1 Connected (CSP and Downlink) to get route redistribution working.**
+    * Validate on NSX Edge VM ``tier0_sr>get bgp neighbor x.x.x.x advertised-routes``
     * Click Add
   * Enable Route Redistribution (hit Edit button on same page)
     * **Status:** Enabled
