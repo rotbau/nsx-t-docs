@@ -168,7 +168,7 @@ If you are planning on using NSX with VMware PKS then this section will cover th
   * T0 > Routing Pull-down > Route Redistribution
   * You should already have a **bgp-route-redistribution** created from step 6.7
   * Select and click **Edit** on bgp-route-redistribution
-  * Click **Static** in addition to the already selected NSX Static.  Both should be checked
+  * Click **T0 Static** in addition to the already selected NSX Static.  Both should be checked
   * Save
   * Verify in your Physical Switch that you are peering with that the 10.40.14.32/27 network is now listed.
 
