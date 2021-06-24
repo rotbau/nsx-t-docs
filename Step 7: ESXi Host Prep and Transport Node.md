@@ -48,7 +48,7 @@
 
 7.5 Verify NSX TEP vmk is created on all hosts
   * SSH to ESXi Host(s)
-    * `esxi-01> esxcfg-vmknic -l` look for vmk which has Netstack type vxlan (vmk10)
+    * `esxcli network ip interface ipv4 get` look for vmk10 which us wgat what vxlan uses
     * `vmkping -S vxlan -I vmk10 -d -s 1550 [VTEP IP]`
     or old command is 
     * `vmkping ++netstack=vxlan {ip of another tep} -d -s 1550` should see reply from other TEPs in the network (either other hosts or edge)
